@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formatting Airline schedule</title>
+
+</head>
+<body>
+
+    <div id="AirSegmentFormatter">
+
+        <style>
+
+            .hidden
+            {
+                width:0; height:0;
+            }
+
+        </style>
+    
+
+        <div id="sidepanel" style="display: flex; position: relative; top: 5px; left:70%;">
+            <div style="display:flex; flex-direction: column;">
+                <button id="formatFlight">🍞</button>
+                <button id="closeSidePanel">❌</button>
+            </div>
+            <textarea id="formattingFlight" placeholder="UA0123 11SEP MCOJFK 2359 0159" style="background-color:#8cdddd; width: 310px; height: 180px;"></textarea>
+            
+        </div>
+
+        <script>
+
+            function translate(xiv){ //str in 24hr format 2359
+
+                xiv2xii = 
+                {
+                    "00":"12am",
+                    "01":"01am",
+                    "02":"02am",
+                    "03":"03am",
+                    "04":"04am",
+                    "05":"05am",
+                    "06":"06am",
+                    "07":"07am",
+                    "08":"08am",
+                    "09":"09am",
+                    "10":"10am",
+                    "11":"11am",
+                    "12":"12pm",
+                    "13":"01pm",
+                    "14":"02pm",
+                    "15":"03pm",
+                    "16":"04pm",
+                    "17":"05pm",
+                    "18":"06pm",
+                    "19":"07pm",
+                    "20":"08pm",
+                    "21":"09pm",
+                    "22":"10pm",
+                    "23":"11pm",
+
+                    // "00":"12",
+                    // "01":"1",
+                    // "02":"2",
+                    // "03":"3",
+                    // "04":"4",
+                    // "05":"5",
+                    // "06":"6",
+                    // "07":"7",
+                    // "08":"8",
+                    // "09":"9",
+                    // "10":"10",
+                    // "11":"11",
+                    // "12":"12",
+                    // "13":"1",
+                    // "14":"2",
+                    // "15":"3",
+                    // "16":"4",
+                    // "17":"5",
+                    // "18":"6",
+                    // "19":"7",
+                    // "20":"8",
+                    // "21":"9",
+                    // "22":"10",
+                    // "23":"11",
+                }
+
+                let newString = ""
+                let finalString = ""
+
+                if (xiv2xii[xiv.slice(0,2)])
+                {
+                    newString = xiv2xii[xiv.slice(0,2)]
+                    finalString = `${newString.slice(0,2)}:${xiv.slice(-2)}${newString.slice(-2)}`
+                    return finalString   
+                }
+            }
+
+
+            const texto =`
+
+            ua0123 11sep * salDCA 2021 2159
+
+            f90123 21OCT dcaJfK 2359 0159,
+            $b60123 16dec ewrden 0621 0739 //dl0078 31dec densjc 0000 1200 
+
+            %y40123 22jan densaL 0001 0202 %3m0123 22jan dalmco 0011 0242
+
+            `
+
+            function flight(text)
+            {
+
+                //let nbrs = /[0-9a-zA-Z][0-9a-zA-Z]\d+/g
+                
+                let nbrs = /[0-9a-zA-Z][0-9a-zA-Z][0-9][0-9][0-9][0-9]/g
+                let dates =/[0-9][0-9][a-zA-Z][a-zA-Z][a-zA-Z]/g
+                let routes = /[a-zA-Z][a-zA-Z][a-zA-Z][a-zA-Z][a-zA-Z][a-zA-Z]/g
+                let scheds = /[0-2][0-9][0-5][0-9][ ][0-2][0-9][0-5][0-9]/g
+
+
+                let allnbrs = text.match(nbrs)
+                let alldates = text.match(dates)
+                let allroutes = text.match(routes)
+                let allscheds = text.match(scheds)
+
+
+                console.log(allnbrs)
+                console.log(alldates)
+                console.log(allroutes)
+                console.log(allscheds)
+
+                let output = ""
+
+                for (let i=0; i<allnbrs.length; i++)
+                {
+                    output += `\u{02708}${allnbrs[i].toUpperCase()} ${alldates[i].toUpperCase()} ${allroutes[i].toUpperCase()} ${translate(allscheds[i].slice(0,4))} ${translate(allscheds[i].slice(5))}\n`
+
+                }
+                return output
+            }
+
+
+
+            // *** main ***
+            const input_ = document.getElementById('formattingFlight')
+            const closing_ = document.getElementById('closeSidePanel')
+
+            closing_.addEventListener('click', (e)=>
+            {
+                input_.value = ""
+
+            }
+            )
+
+
+            document.getElementById('formatFlight').addEventListener( 'click', (e)=>
+                {
+                    try
+                    {
+                        input_.value = flight(input_.value)
+                    }
+                    catch (error)
+                    {
+                        console.log(error);
+                    }
+                }
+            )
+
+
+        </script>
+    </div>
+   
+    <div id="greet" >
+        <div id="greetheader">
+
+            <style>
+
+                #greet {
+                    position: absolute;
+                    z-index: 9;
+                    background-color: #f1f1f1;
+                    border: 1px solid #d3d3d3;
+                    text-align: center;
+                    top: 27%; left: 90%;
+                }
+        
+                #greetheader {
+                    padding: 17px 2px 2px 2px;
+                    cursor: grab;
+                    z-index: 10;
+                    background-color: #2196F3;
+                    color: #fff;
+                    
+                }
+
+                #greetings {
+                    width: 7rem;
+                }
+        
+            </style>
+
+
+            <button id="greetings">Greetings!</button>
+
+            <script>
+                
+                let greetings = document.getElementById('greetings')
+                
+                greetings.addEventListener('click', ()=> 
+                {
+                    const greet1 = [
+                        `Hi there!`,
+                        `Hello there!`
+                    ]
+                    const g1 = Math.floor(Math.random()*greet1.length)
+
+                    const greet2 = [
+                        `\u{2014}I'll be happy to assist you `,
+                        `\u{2014}I'm here to help! `,
+                        `\u{2014}I'll be glad to assist you `
+                        
+                    ]
+                    const g2 = Math.floor(Math.random()*greet2.length)
+
+
+                    let allGreetings = `${greet1[g1]} ${greet2[g2]}(So we stay connected, please keep this chat window open)`
+
+                    navigator.clipboard.writeText(allGreetings)
+                })
+
+            </script>
+
+            <script>
+                // Make the DIV element draggable:
+                dragElement(document.getElementById("greet"));
+
+                function dragElement(elmnt) {
+                var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+                if (document.getElementById(elmnt.id + "header")) {
+                    // if present, the header is where you move the DIV from:
+                    document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
+                } else {
+                    // otherwise, move the DIV from anywhere inside the DIV:
+                    elmnt.onmousedown = dragMouseDown;
+                }
+
+                function dragMouseDown(e) {
+                    e = e || window.event;
+                    e.preventDefault();
+                    // get the mouse cursor position at startup:
+                    pos3 = e.clientX;
+                    pos4 = e.clientY;
+                    document.onmouseup = closeDragElement;
+                    // call a function whenever the cursor moves:
+                    document.onmousemove = elementDrag;
+                }
+
+                function elementDrag(e) {
+                    e = e || window.event;
+                    e.preventDefault();
+                    // calculate the new cursor position:
+                    pos1 = pos3 - e.clientX;
+                    pos2 = pos4 - e.clientY;
+                    pos3 = e.clientX;
+                    pos4 = e.clientY;
+                    // set the element's new position:
+                    elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+                    elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+                }
+
+                function closeDragElement() {
+                    // stop moving when mouse button is released:
+                    document.onmouseup = null;
+                    document.onmousemove = null;
+                }
+                }
+            </script>
+        </div>
+    </div>
+
+    <div id="yessir">
+        <div id="yessirheader">
+
+            <style>
+
+                #yessir {
+                    position: absolute;
+                    z-index: 9;
+                    background-color: #f1f1f1;
+                    border: 1px solid #d3d3d3;
+                    text-align: center;
+                    top: 33%; left: 90%;
+                }
+        
+                #yessirheader {
+                    padding: 17px 2px 2px 2px;
+                    cursor: grab;
+                    z-index: 10;
+                    background-color: #21f39f;
+                    color: #fff;
+                }
+                
+                #acknowledge{
+                    width: 7rem;
+                }
+            </style>
+        
+            <button id="acknowledge">acknowledge!</button>
+
+            <script>
+
+                let acknowledge = document.getElementById('acknowledge')
+                
+                acknowledge.addEventListener('click', ()=> 
+                {
+                    const ack1 =
+                    [
+                        `Roger that!`,
+                        `Acknowledged!`,
+                        `Understood!`,
+                        `Got it!`
+                    ]
+                    const a1 = Math.floor(Math.random()*ack1.length)
+
+                    const ack2 = 
+                    [
+                        `\u{2014}I'm further researching into it.`,
+                        `\u{2014}I'm further looking into it.`
+                    ]
+                    const a2 = Math.floor(Math.random()*ack2.length)
+
+                    const ack3 =
+                    [
+                        `I'll be right back (5min)`,
+                        `I'm back in a moment (5min)`,
+                        `Brb (5min)`,
+                        `I'm back in brief (5min)`,
+                        `I'll be back in brief (5min)`
+                    ]
+                    const a3 = Math.floor(Math.random()*ack3.length)
+
+                    let allacknowledge = `${ack1[a1]} ${ack2[a2]} ${ack3[a3]}`
+                    
+                    navigator.clipboard.writeText(allacknowledge)
+                })
+
+            </script>
+
+            <script>
+                // Make the DIV element draggable:
+                dragElement(document.getElementById("yessir"));
+
+                function dragElement(elmnt) {
+                var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+                if (document.getElementById(elmnt.id + "header")) {
+                    // if present, the header is where you move the DIV from:
+                    document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
+                } else {
+                    // otherwise, move the DIV from anywhere inside the DIV:
+                    elmnt.onmousedown = dragMouseDown;
+                }
+
+                function dragMouseDown(e) {
+                    e = e || window.event;
+                    e.preventDefault();
+                    // get the mouse cursor position at startup:
+                    pos3 = e.clientX;
+                    pos4 = e.clientY;
+                    document.onmouseup = closeDragElement;
+                    // call a function whenever the cursor moves:
+                    document.onmousemove = elementDrag;
+                }
+
+                function elementDrag(e) {
+                    e = e || window.event;
+                    e.preventDefault();
+                    // calculate the new cursor position:
+                    pos1 = pos3 - e.clientX;
+                    pos2 = pos4 - e.clientY;
+                    pos3 = e.clientX;
+                    pos4 = e.clientY;
+                    // set the element's new position:
+                    elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+                    elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+                }
+
+                function closeDragElement() {
+                    // stop moving when mouse button is released:
+                    document.onmouseup = null;
+                    document.onmousemove = null;
+                }
+                }
+            </script>
+
+        </div>
+
+    </div>
+
+    <div id="hold">
+        <div id="holdheader">
+
+            <style>
+
+                #hold {
+                    position: absolute;
+                    z-index: 9;
+                    background-color: #f1f1f1;
+                    border: 1px solid #d3d3d3;
+                    text-align: center;
+                    top: 39%; left: 90%;
+
+                }
+        
+                #holdheader {
+                    padding: 17px 2px 2px 2px;
+                    cursor: grab;
+                    z-index: 10;
+                    background-color: #c45b70;
+                    color: #fff;
+                }
+
+                #wait {
+                    width:7rem;
+                }
+        
+            </style>
+
+            <button id="wait">  wait!  </button>
+
+            <script>
+                
+                //TODO: function to randomize even MORE! i.e.: `${phrase} ${doing} {brb}`
+                
+                
+                // \u{1F3C3} running man emoji
+
+                let wait = document.getElementById('wait')
+                
+                wait.addEventListener('click', ()=> 
+                {
+
+                    //put here a list with random bits
+
+                    const wa1 =
+                    [
+                        `Thanks for your patience!`,
+                        `Thanks for waiting!`,
+                        `We appreciate your patience!`                    
+
+                    ]
+                    const w1 = Math.floor(Math.random()*wa1.length)
+
+                    const wa2 =
+                    [
+                        `We're still working on it`,
+                        `I'm still working on it`
+                    ]
+                    const w2 = Math.floor(Math.random()*wa2.length)
+
+                    const wa3 =
+                    [
+                        `Brb (5-8min)`,
+                        `I'll be back in brief (5-8min)`, 
+                        `I'll be right back (5-8min)`,
+                        `I'm back in a moment (5-8min)` 
+                    ]
+                    const w3 = Math.floor(Math.random()*wa3.length)
+
+                    const wa4 =
+                    [
+                        `\u{231B}`, //hourglass
+                        `\u{1F3C3}`, //running man
+                        `\u{1F4A8}`, //dash
+                        `\u{23F1}` //Stopwatch
+                    ]
+                    const w4 = Math.floor(Math.random()*wa4.length)
+
+                    const allwait =
+                    [
+                    `${wa1[w1]} \u{2014}${wa2[w2]}. ${wa3[w3]} ${wa4[w4]}`,
+                    `${wa2[w2]} \u{2014}${wa1[w1]} ${wa3[w3]} ${wa4[w4]}`
+                    ]
+                    
+                    const rand = Math.floor(Math.random()*allwait.length)
+
+                    navigator.clipboard.writeText(allwait[rand])
+                })
+
+            </script>
+
+            <script>
+                // Make the DIV element draggable:
+                dragElement(document.getElementById("hold"));
+
+                function dragElement(elmnt) {
+                var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+                if (document.getElementById(elmnt.id + "header")) {
+                    // if present, the header is where you move the DIV from:
+                    document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
+                } else {
+                    // otherwise, move the DIV from anywhere inside the DIV:
+                    elmnt.onmousedown = dragMouseDown;
+                }
+
+                function dragMouseDown(e) {
+                    e = e || window.event;
+                    e.preventDefault();
+                    // get the mouse cursor position at startup:
+                    pos3 = e.clientX;
+                    pos4 = e.clientY;
+                    document.onmouseup = closeDragElement;
+                    // call a function whenever the cursor moves:
+                    document.onmousemove = elementDrag;
+                }
+
+                function elementDrag(e) {
+                    e = e || window.event;
+                    e.preventDefault();
+                    // calculate the new cursor position:
+                    pos1 = pos3 - e.clientX;
+                    pos2 = pos4 - e.clientY;
+                    pos3 = e.clientX;
+                    pos4 = e.clientY;
+                    // set the element's new position:
+                    elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+                    elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+                }
+
+                function closeDragElement() {
+                    // stop moving when mouse button is released:
+                    document.onmouseup = null;
+                    document.onmousemove = null;
+                }
+                }
+            </script>
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+</body>
+</html>
