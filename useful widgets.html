@@ -21,7 +21,7 @@
         </style>
     
 
-        <div id="sidepanel" style="display: flex; position: relative; top: 5px; left:70%;">
+        <div id="sidepanel" style="display: flex; position: absolute; top: 5px; left:70%;">
             <div style="display:flex; flex-direction: column;">
                 <button id="formatFlight">🍞</button>
                 <button id="closeSidePanel">❌</button>
@@ -201,8 +201,8 @@
             }
 
             @keyframes copied {
-                0% {border-color:white;}
-                50% {border-color: rgb(89, 228, 119);}                
+                0% {border-color:white; background-color: wheat; color: white;} 
+                50% {border-color: rgb(89, 228, 119); background-color: greenyellow; color: black;}                
             }
 
         </style>
@@ -344,6 +344,10 @@
                 })
 
             </script>
+
+        </div>
+
+        <div id="warn">
 
         </div>
 
