@@ -172,143 +172,76 @@
 
         </script>
     </div>
+
+
+    <div id="Click2CopyVerbiages">
+
+        <style>
+
+            #Click2CopyVerbiages{
+                position: absolute;
+                display: grid;
+                column-width: 30px;
+                background-color: rgb(127, 236, 255);
+                width: 1px;
+            }
+
+            .verbiageBtn{
+                width: 7rem;
+                color: white;
+                background-color: rgb(240, 111, 99);
+                border-width: 0.5em;
+                border-color: rgb(205, 101, 27);
+            }
+
+            .verbiageBtn:hover{
+                background-color: yellow;
+                color: black;
+            }
+
+            @keyframes copied {
+                0% {border-color:white;}
+                50% {border-color: rgb(89, 228, 119);}                
+            }
+
+        </style>
    
-    <div id="greet" >
-        <div id="greetheader">
+        <div id="greet" >
 
-            <style>
+                <button id="greetings" class="verbiageBtn"><strong>Greetings!</strong></button>
 
-                #greet {
-                    position: absolute;
-                    z-index: 9;
-                    background-color: #f1f1f1;
-                    border: 1px solid #d3d3d3;
-                    text-align: center;
-                    top: 27%; left: 90%;
-                }
-        
-                #greetheader {
-                    padding: 17px 2px 2px 2px;
-                    cursor: grab;
-                    z-index: 10;
-                    background-color: #2196F3;
-                    color: #fff;
+                <script>
                     
-                }
+                    let greetings = document.getElementById('greetings')
+                    
+                    greetings.addEventListener('click', ()=> 
+                    {
+                        const greet1 = [
+                            `Hi there!`,
+                            `Hello there!`
+                        ]
+                        const g1 = Math.floor(Math.random()*greet1.length)
 
-                #greetings {
-                    width: 7rem;
-                }
-        
-            </style>
-
-
-            <button id="greetings">Greetings!</button>
-
-            <script>
-                
-                let greetings = document.getElementById('greetings')
-                
-                greetings.addEventListener('click', ()=> 
-                {
-                    const greet1 = [
-                        `Hi there!`,
-                        `Hello there!`
-                    ]
-                    const g1 = Math.floor(Math.random()*greet1.length)
-
-                    const greet2 = [
-                        `\u{2014}I'll be happy to assist you `,
-                        `\u{2014}I'm here to help! `,
-                        `\u{2014}I'll be glad to assist you `
-                        
-                    ]
-                    const g2 = Math.floor(Math.random()*greet2.length)
+                        const greet2 = [
+                            `\u{2014}I'll be happy to assist you `,
+                            `\u{2014}I'm here to help! `,
+                            `\u{2014}I'll be glad to assist you `
+                            
+                        ]
+                        const g2 = Math.floor(Math.random()*greet2.length)
 
 
-                    let allGreetings = `${greet1[g1]} ${greet2[g2]}(So we stay connected, please keep this chat window open)`
+                        let allGreetings = `${greet1[g1]} ${greet2[g2]}(So we stay connected, please keep this chat window open)`
 
-                    navigator.clipboard.writeText(allGreetings)
-                })
+                        navigator.clipboard.writeText(allGreetings)
+                    })
 
-            </script>
-
-            <script>
-                // Make the DIV element draggable:
-                dragElement(document.getElementById("greet"));
-
-                function dragElement(elmnt) {
-                var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-                if (document.getElementById(elmnt.id + "header")) {
-                    // if present, the header is where you move the DIV from:
-                    document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
-                } else {
-                    // otherwise, move the DIV from anywhere inside the DIV:
-                    elmnt.onmousedown = dragMouseDown;
-                }
-
-                function dragMouseDown(e) {
-                    e = e || window.event;
-                    e.preventDefault();
-                    // get the mouse cursor position at startup:
-                    pos3 = e.clientX;
-                    pos4 = e.clientY;
-                    document.onmouseup = closeDragElement;
-                    // call a function whenever the cursor moves:
-                    document.onmousemove = elementDrag;
-                }
-
-                function elementDrag(e) {
-                    e = e || window.event;
-                    e.preventDefault();
-                    // calculate the new cursor position:
-                    pos1 = pos3 - e.clientX;
-                    pos2 = pos4 - e.clientY;
-                    pos3 = e.clientX;
-                    pos4 = e.clientY;
-                    // set the element's new position:
-                    elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-                    elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
-                }
-
-                function closeDragElement() {
-                    // stop moving when mouse button is released:
-                    document.onmouseup = null;
-                    document.onmousemove = null;
-                }
-                }
-            </script>
+                </script>
         </div>
-    </div>
 
-    <div id="yessir">
-        <div id="yessirheader">
-
-            <style>
-
-                #yessir {
-                    position: absolute;
-                    z-index: 9;
-                    background-color: #f1f1f1;
-                    border: 1px solid #d3d3d3;
-                    text-align: center;
-                    top: 33%; left: 90%;
-                }
-        
-                #yessirheader {
-                    padding: 17px 2px 2px 2px;
-                    cursor: grab;
-                    z-index: 10;
-                    background-color: #21f39f;
-                    color: #fff;
-                }
-                
-                #acknowledge{
-                    width: 7rem;
-                }
-            </style>
-        
-            <button id="acknowledge">acknowledge!</button>
+        <div id="yessir">
+                 
+            <button id="acknowledge" class="verbiageBtn"><strong>Acknowledge!</strong></button>
 
             <script>
 
@@ -349,94 +282,14 @@
 
             </script>
 
-            <script>
-                // Make the DIV element draggable:
-                dragElement(document.getElementById("yessir"));
-
-                function dragElement(elmnt) {
-                var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-                if (document.getElementById(elmnt.id + "header")) {
-                    // if present, the header is where you move the DIV from:
-                    document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
-                } else {
-                    // otherwise, move the DIV from anywhere inside the DIV:
-                    elmnt.onmousedown = dragMouseDown;
-                }
-
-                function dragMouseDown(e) {
-                    e = e || window.event;
-                    e.preventDefault();
-                    // get the mouse cursor position at startup:
-                    pos3 = e.clientX;
-                    pos4 = e.clientY;
-                    document.onmouseup = closeDragElement;
-                    // call a function whenever the cursor moves:
-                    document.onmousemove = elementDrag;
-                }
-
-                function elementDrag(e) {
-                    e = e || window.event;
-                    e.preventDefault();
-                    // calculate the new cursor position:
-                    pos1 = pos3 - e.clientX;
-                    pos2 = pos4 - e.clientY;
-                    pos3 = e.clientX;
-                    pos4 = e.clientY;
-                    // set the element's new position:
-                    elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-                    elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
-                }
-
-                function closeDragElement() {
-                    // stop moving when mouse button is released:
-                    document.onmouseup = null;
-                    document.onmousemove = null;
-                }
-                }
-            </script>
-
         </div>
 
-    </div>
+        <div id="hold">
 
-    <div id="hold">
-        <div id="holdheader">
-
-            <style>
-
-                #hold {
-                    position: absolute;
-                    z-index: 9;
-                    background-color: #f1f1f1;
-                    border: 1px solid #d3d3d3;
-                    text-align: center;
-                    top: 39%; left: 90%;
-
-                }
-        
-                #holdheader {
-                    padding: 17px 2px 2px 2px;
-                    cursor: grab;
-                    z-index: 10;
-                    background-color: #c45b70;
-                    color: #fff;
-                }
-
-                #wait {
-                    width:7rem;
-                }
-        
-            </style>
-
-            <button id="wait">  wait!  </button>
+            <button id="wait" class="verbiageBtn">  <strong>Wait!</strong>  </button>
 
             <script>
                 
-                //TODO: function to randomize even MORE! i.e.: `${phrase} ${doing} {brb}`
-                
-                
-                // \u{1F3C3} running man emoji
-
                 let wait = document.getElementById('wait')
                 
                 wait.addEventListener('click', ()=> 
@@ -491,55 +344,39 @@
 
             </script>
 
-            <script>
-                // Make the DIV element draggable:
-                dragElement(document.getElementById("hold"));
-
-                function dragElement(elmnt) {
-                var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-                if (document.getElementById(elmnt.id + "header")) {
-                    // if present, the header is where you move the DIV from:
-                    document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
-                } else {
-                    // otherwise, move the DIV from anywhere inside the DIV:
-                    elmnt.onmousedown = dragMouseDown;
-                }
-
-                function dragMouseDown(e) {
-                    e = e || window.event;
-                    e.preventDefault();
-                    // get the mouse cursor position at startup:
-                    pos3 = e.clientX;
-                    pos4 = e.clientY;
-                    document.onmouseup = closeDragElement;
-                    // call a function whenever the cursor moves:
-                    document.onmousemove = elementDrag;
-                }
-
-                function elementDrag(e) {
-                    e = e || window.event;
-                    e.preventDefault();
-                    // calculate the new cursor position:
-                    pos1 = pos3 - e.clientX;
-                    pos2 = pos4 - e.clientY;
-                    pos3 = e.clientX;
-                    pos4 = e.clientY;
-                    // set the element's new position:
-                    elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-                    elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
-                }
-
-                function closeDragElement() {
-                    // stop moving when mouse button is released:
-                    document.onmouseup = null;
-                    document.onmousemove = null;
-                }
-                }
-            </script>
-
         </div>
-    </div>
 
+
+        <script>
+            
+            verbiageBtn = document.querySelectorAll('.verbiageBtn')
+            
+            verbiageBtn.forEach((i)=>{
+                                
+                i.addEventListener('click', ()=>{
+                
+                    i.style.animationName = ''
+                    i.style.animationDuration = ''
+
+
+                    setTimeout(function(){
+                        if (i.style.animationName == '')
+                        {
+                            i.style.animationName='copied'
+                            i.style.animationDuration='1.2s'
+                        }
+                    },1)
+
+                })
+            })
+            
+        </script>
+
+
+
+
+
+    </div>
 
 
 
