@@ -347,9 +347,88 @@
 
         </div>
 
-        <div id="warn">
+        <div id="warn" >
 
+            <button id="warning" class="verbiageBtn"><strong>Warning!</strong></button>
+
+            <script>
+                
+                let warning = document.getElementById('warning')
+                
+                warning.addEventListener('click', ()=> 
+                {
+
+                    const warn1 = [
+                        `I'm still here.`,
+                        `I'm here.`,
+                        `I'm still with you.`,
+                        `Chat is still active.`,
+                        `Chat session is still active.`
+                    ]
+                    const wa1 = Math.floor(Math.random()*warn1.length)
+
+                    const warn2 = [
+                        `Just making sure we're still connected.`,
+                        `Just checking we're still connected`,
+                        `Just ensuring we're still connected.`,
+                        `Just double-checking we're still connected.`
+                    ]
+                    const wa2 = Math.floor(Math.random()*warn2.length)
+
+
+                    let allwarnings = `${warn1[wa1]} ${warn2[wa2]}`
+
+                    navigator.clipboard.writeText(allwarnings)
+                })
+
+            </script>
         </div>
+
+        <div id="farewell" >
+
+            <button id="bye" class="verbiageBtn"><strong>Bye!</strong></button>
+
+            <script>
+                
+                let bye = document.getElementById('bye')
+                
+                bye.addEventListener('click', ()=> 
+                {
+
+                    const byebye1 = [
+                        `Thanks for chatting with us today!`,
+                        `Thanks again for chatting with us today!`,
+                        `Thanks for chatting with us!`,
+                        `Thanks again for chatting with us!`
+                        
+                    ]
+                    const bb1 = Math.floor(Math.random()*byebye1.length)
+
+                    const byebye2 = [
+                        `\u{2014}Stay safe!`,
+                        `\u{2014}Have a great day!`,
+                        `\u{2014}Have a wonderful day!`,
+                        `\u{2014}Have a nice day!`
+                    ]
+                    const bb2 = Math.floor(Math.random()*byebye2.length)
+
+                    const byebye3 = [
+                        `\u{1F450}`, //open hands
+                        `\u{1F64F}`, //praying
+                        `\u{2728}`, //sparkles
+                        `\u{1F31E}` //Happy sun
+                    ]
+                    const bb3 = Math.floor(Math.random()*byebye3.length)
+
+
+                    const allbyebye = `${byebye1[bb1]} ${byebye2[bb2]} ${byebye3[bb3]}`
+
+                    navigator.clipboard.writeText(allbyebye)
+                })
+
+            </script>
+        </div>
+
 
 
         <script>
